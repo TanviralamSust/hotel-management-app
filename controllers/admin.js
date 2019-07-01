@@ -1,6 +1,6 @@
 const Employee = require('../models/employee');
-const Product = require('../models/product').product;
-const Room = require('../models/product').room;
+const Product = require('../models/product');
+const Room = require('../models/room');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -79,7 +79,7 @@ exports.postAddRoom = (req, res, next) => {
         description: description
     }).then(result => {
         console.log('Created Room Successfully');
-        res.redirect('/admin/products');
+        res.redirect('/admin/rooms');
     }).catch(err => {
         console.log(err);
     });
@@ -197,6 +197,18 @@ exports.getEmployees = (req, res, next) => {
                 employees: employees,
                 pageTitle: 'Employees of the office',
                 path: '/admin/employees'
+            });
+        })
+        .catch(err => console.log(err));
+};
+
+exports.getRooms = (req, res, next) => {
+    Room.findAll()
+        .then(rooms => {
+            res.render('admin/rooms', {
+                rooms: rooms,
+                pageTitle: 'Admin Rooms',
+                path: '/admin/rooms'
             });
         })
         .catch(err => console.log(err));
