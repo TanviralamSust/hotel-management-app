@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/employee.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+<main>
+    <form class="employee-form" action="/admin/<% if (editing) { %>edit-employee<% } else { %>add-employee<% } %>" method="POST">
+        <div class="form-control">
+            <label for="name">Employee Name</label>
+            <input type="text" name="name" id="name" value="<% if (editing) { %><%= employee.name %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="imageUrl">Employee Image Url</label>
+            <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= employee.imageUrl %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="price">Employee Salaray</label>
+            <input type="text" name="price" id="price" value="<% if (editing) { %><%= employee.price %><% } %> ">
+        </div>
+        <div class="form-control">
+            <label for="designation">Employee Designation</label>
+            <input type="text" name="designation" id="designation" value="<% if (editing) { %><%= employee.designation %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="contactNumber">Employee Contact Number</label>
+            <input type="number" name="contactNumber" id="contactNumber" value="<% if (editing) { %><%= employee.contactNumber %><% } %>">
+        </div>
+        <% if (editing) { %>
+            <input type="hidden" value="<%= employee.id %>" name="employeeId">
+        <% } %>
+
+        <button class="btn" type="submit"><% if (editing) { %>Update Employee<% } else { %>Add Employee<% } %></button>
+    </form>
+
+</main>
+<%- include('../includes/end.ejs') %>

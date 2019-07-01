@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Employee = require('../models/employee')
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -6,6 +7,14 @@ exports.getAddProduct = (req, res, next) => {
     path: '/admin/add-product',
     editing: false
   });
+};
+
+exports.getAddEmployee = (req, res, next) => {
+    res.render('admin/edit-employee', {
+        pageTitle: 'Add Employee',
+        path: '/admin/add-employee',
+        editing: false
+    });
 };
 
 exports.postAddProduct = (req, res, next) => {
@@ -28,6 +37,30 @@ exports.postAddProduct = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
+};
+
+exports.postAddEmployee = (req, res, next) => {
+    const name = req.body.name;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const designation = req.body.designation;
+    const contactNumber= req.body.contactNumber;
+    req.user
+        .createEmployee({
+            name: name,
+            price: price,
+            designation: designation,
+            imageUrl: imageUrl,
+            contactNumber: contactNumber
+        })
+        .then(result => {
+            // console.log(result);
+            console.log('Created employee');
+            res.redirect('/admin/employees');
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -54,6 +87,30 @@ exports.getEditProduct = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getEditEmployee = (req, res, next) => {
+    const editMode = req.query.edit;
+    if (!editMode) {
+        return res.redirect('/');
+    }
+    const employeeId = req.params.employeeId;
+    req.user
+        .getEmployees({ where: { id: employeeId } })
+        // Product.findByPk(prodId)
+        .then(employees => {
+            const employee = employees[0];
+            if (!employee) {
+                return res.redirect('/');
+            }
+            res.render('admin/edit-employee', {
+                pageTitle: 'Edit Employee',
+                path: '/admin/edit-employee',
+                editing: editMode,
+                employee: employee
+            });
+        })
+        .catch(err => console.log(err));
+};
+
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const updatedTitle = req.body.title;
@@ -75,6 +132,29 @@ exports.postEditProduct = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.postEditEmployee = (req, res, next) => {
+    const employeeId = req.body.employeeId;
+    const updatedName = req.body.name;
+    const updatedPrice = req.body.price;
+    const updatedImageUrl = req.body.imageUrl;
+    const updatedDesignation = req.body.designation;
+    const updatedContactNumber = req.body.contactNumber;
+    Employee.findByPk(employeeId)
+        .then(employee => {
+            employee.name = updatedName;
+            employee.price = updatedPrice;
+            employee.designation = updatedDesignation;
+            employee.imageUrl = updatedImageUrl;
+            employee.contactNumber = updatedContactNumber;
+            return employee.save();
+        })
+        .then(result => {
+            console.log('UPDATED Employee');
+            res.redirect('/admin/employees');
+        })
+        .catch(err => console.log(err));
+};
+
 exports.getProducts = (req, res, next) => {
   req.user
     .getProducts()
@@ -88,6 +168,19 @@ exports.getProducts = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getEmployees = (req, res, next) => {
+    req.user
+        .getEmployees()
+        .then(employees => {
+            res.render('admin/employees', {
+                employees: employees,
+                pageTitle: 'Employees of the office',
+                path: '/admin/employees'
+            });
+        })
+        .catch(err => console.log(err));
+};
+
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   Product.findByPk(prodId)
@@ -99,4 +192,17 @@ exports.postDeleteProduct = (req, res, next) => {
       res.redirect('/admin/products');
     })
     .catch(err => console.log(err));
+};
+
+exports.postDeleteEmployee = (req, res, next) => {
+    const employeeId = req.body.employeeId;
+    Employee.findByPk(employeeId)
+        .then(employee => {
+            return employee.destroy();
+        })
+        .then(result => {
+            console.log('DESTROYED Employee');
+            res.redirect('/admin/employees');
+        })
+        .catch(err => console.log(err));
 };

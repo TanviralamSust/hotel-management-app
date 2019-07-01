@@ -23,6 +23,14 @@ form {
   text-align: center;
 }
 
+.alignCentered {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-left: 120px;
+;
+}
+
 .image {
   height: 20rem;
 }

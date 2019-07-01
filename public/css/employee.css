@@ -1,0 +1,36 @@
+.employee-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.employee-item {
+    width: 20rem;
+    max-width: 95%;
+    margin-top: 50px;
+    margin-left: 120px;
+}
+
+.employee__title {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.employee__price {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+.employee__designation {
+    text-align: center;
+}
+
+.employee__alignment {
+    margin: 0 auto;
+}
+
+.employee__contactNumber {
+    text-align: center;
+}
