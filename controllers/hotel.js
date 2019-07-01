@@ -24,3 +24,13 @@ exports.getRoom = (req, res, next) => {
         })
         .catch(err => console.log(err));
 };
+
+exports.getBookRoom = (req, res, next) => {
+    const roomId = req.body.roomId;
+    res.render('hotel/book-room-form', {
+        pageTitle: 'Book room',
+        path: '/',
+        editing: false,
+        roomId: roomId
+    });
+};

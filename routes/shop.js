@@ -11,6 +11,8 @@ router.get('/', hotelController.getIndex);
 
 router.get('/rooms/:roomId', hotelController.getRoom);
 
+router.get('/book-room', hotelController.getBookRoom);
+
 router.get('/products', shopController.getProducts);
 
 router.get('/products/:productId', shopController.getProduct);
