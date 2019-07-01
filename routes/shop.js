@@ -3,10 +3,13 @@ const path = require('path');
 const express = require('express');
 
 const shopController = require('../controllers/shop');
+const hotelController = require('../controllers/hotel');
 
 const router = express.Router();
 
-router.get('/', shopController.getIndex);
+router.get('/', hotelController.getIndex);
+
+router.get('/rooms/:roomId', hotelController.getRoom);
 
 router.get('/products', shopController.getProducts);
 
