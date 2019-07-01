@@ -1,5 +1,6 @@
-const Product = require('../models/product');
-const Employee = require('../models/employee')
+const Employee = require('../models/employee');
+const Product = require('../models/product').product;
+const Room = require('../models/product').room;
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -62,7 +63,27 @@ exports.postAddEmployee = (req, res, next) => {
             console.log(err);
         });
 };
-
+exports.postAddRoom = (req, res, next) => {
+    const no = req.body.no;
+    const type = req.body.type;
+    const cap = req.body.cap;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
+    Room.create({
+        no: no,
+        type: type,
+        price: price,
+        cap: cap,
+        imageUrl: imageUrl,
+        description: description
+    }).then(result => {
+        console.log('Created Room Successfully');
+        res.redirect('/admin/products');
+    }).catch(err => {
+        console.log(err);
+    });
+};
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {

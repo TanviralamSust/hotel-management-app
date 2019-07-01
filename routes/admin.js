@@ -37,4 +37,6 @@ router.post('/edit-employee', adminController.postEditEmployee);
 // /admin/delete-product => POST
 router.post('/delete-employee', adminController.postDeleteEmployee);
 
+router.post('/add-room', adminController.postAddRoom);
+
 module.exports = router;
