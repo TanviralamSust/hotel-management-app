@@ -36,9 +36,24 @@ router.get('/edit-employee/:employeeId', adminController.getEditEmployee);
 router.post('/edit-employee', adminController.postEditEmployee);
 // /admin/delete-product => POST
 router.post('/delete-employee', adminController.postDeleteEmployee);
+
+
 // /admin/rooms => GET
 router.get('/rooms', adminController.getRooms);
+
+// /admin/add-room => GET
+router.get('/add-room', adminController.getAddRoom);
+
 // /admin/add-room => POST
 router.post('/add-room', adminController.postAddRoom);
+
+// /admin/edit-room =>GET
+router.get('/edit-room/:roomId', adminController.getEditRoom);
+
+// /admin/edit-room => POST
+router.post('/edit-room', adminController.postEditRoom);
+
+// /admin/delete-room => POST
+router.post('/delete-room', adminController.postDeleteRoom);
 
 module.exports = router;

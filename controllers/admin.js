@@ -18,6 +18,14 @@ exports.getAddEmployee = (req, res, next) => {
     });
 };
 
+exports.getAddRoom = (req, res, next) => {
+    res.render('admin/edit-room', {
+        pageTitle: 'Add Room',
+        path: '/admin/add-room',
+        editing: false
+    });
+};
+
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
@@ -70,7 +78,8 @@ exports.postAddRoom = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    Room.create({
+    req.user
+        .createRoom({
         no: no,
         type: type,
         price: price,
@@ -84,6 +93,56 @@ exports.postAddRoom = (req, res, next) => {
         console.log(err);
     });
 };
+
+exports.postEditRoom = (req, res, next) => {
+    const roomId = req.body.roomId;
+    const updatedNo = req.body.no;
+    const updateType = req.body.type;
+    const updateCap = req.body.cap
+    const updatedPrice = req.body.price;
+    const updatedImageUrl = req.body.imageUrl;
+    const updatedDesc = req.body.description;
+    Room.findByPk(roomId)
+        .then(room => {
+            room.no = updatedNo;
+            room.type = updateType
+            room.cap = updateCap;
+            room.price = updatedPrice;
+            room.description = updatedDesc;
+            room.imageUrl = updatedImageUrl;
+            return room.save();
+        })
+        .then(result => {
+            console.log('UPDATED ROOM!');
+            res.redirect('/admin/rooms');
+        })
+        .catch(err => console.log(err));
+};
+
+exports.getEditRoom = (req, res, next) => {
+    const editMode = req.query.edit;
+    if (!editMode) {
+        return res.redirect('/');
+    }
+    const roomId = req.params.roomId;
+    req.user
+        .getRooms({ where: { id: roomId } })
+        // Product.findByPk(prodId)
+        .then(rooms => {
+            const room = rooms[0];
+            if (!room) {
+                // return res.redirect('/');
+            }
+            res.render('admin/edit-room', {
+                pageTitle: 'Edit Room',
+                path: '/admin/edit-room',
+                editing: editMode,
+                room: room
+            });
+        })
+        .catch(err => console.log(err));
+};
+
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
@@ -107,6 +166,8 @@ exports.getEditProduct = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+
 
 exports.getEditEmployee = (req, res, next) => {
     const editMode = req.query.edit;
@@ -236,6 +297,19 @@ exports.postDeleteEmployee = (req, res, next) => {
         .then(result => {
             console.log('DESTROYED Employee');
             res.redirect('/admin/employees');
+        })
+        .catch(err => console.log(err));
+};
+
+exports.postDeleteRoom = (req, res, next) => {
+    const roomId = req.body.roomId;
+    Room.findByPk(roomId)
+        .then(room => {
+            return room.destroy();
+        })
+        .then(result => {
+            console.log('DESTROYED ROOM');
+            res.redirect('/admin/rooms');
         })
         .catch(err => console.log(err));
 };

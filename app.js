@@ -13,6 +13,7 @@ const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
 const Order = require('./models/order');
 const OrderItem = require('./models/order-item');
+const Room = require('./models/room');
 
 const app = express();
 
@@ -50,6 +51,8 @@ User.hasMany(Order);
 Order.belongsToMany(Product, { through: OrderItem });
 Employee.belongsTo(User);
 User.hasMany(Employee);
+Room.belongsTo(User);
+User.hasMany(Room);
 
 sequelize
   // .sync({ force: true })
