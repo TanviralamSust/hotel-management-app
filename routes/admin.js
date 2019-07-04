@@ -56,4 +56,17 @@ router.post('/edit-room', adminController.postEditRoom);
 // /admin/delete-room => POST
 router.post('/delete-room', adminController.postDeleteRoom);
 
+
+// /admin/book-room =>GET
+
+
+// /admin/book-room =>POST
+router.post('/book-room', adminController.postBookRoom);
+
+// /admin/booked-room =>GET
+router.get('/booked-room', adminController.getBookRoom);
+
+// /admin/delete-booking =>POST
+router.post('/cart-delete-book', adminController.postDeleteBook);
+
 module.exports = router;

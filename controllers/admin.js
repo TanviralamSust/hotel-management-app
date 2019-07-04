@@ -1,6 +1,9 @@
 const Employee = require('../models/employee');
 const Product = require('../models/product');
 const Room = require('../models/room');
+const Book = require('../models/book');
+const BookCart = require('../models/book-cart');
+
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -89,6 +92,29 @@ exports.postAddRoom = (req, res, next) => {
     }).then(result => {
         console.log('Created Room Successfully');
         res.redirect('/admin/rooms');
+    }).catch(err => {
+        console.log(err);
+    });
+};
+
+exports.postBookRoom = (req, res, next) => {
+    const roomNo = req.body.roomNo;
+    const bookingDate = req.body.bookingDate;
+    const customerName = req.body.customerName;
+    const customerNId = req.body.customerNId;
+    const customerPhone = req.body.customerPhone;
+    const customerBill = req.body.customerBill;
+    req.user
+        .createBook({
+            roomNo: roomNo,
+            bookingDate: bookingDate,
+            customerName: customerName,
+            customerNId: customerNId,
+            customerPhone: customerPhone,
+            customerBill: customerBill
+        }).then(result => {
+        console.log('Created Booking Successfully');
+        res.redirect('/admin/booked-room');
     }).catch(err => {
         console.log(err);
     });
@@ -263,6 +289,8 @@ exports.getEmployees = (req, res, next) => {
         .catch(err => console.log(err));
 };
 
+
+
 exports.getRooms = (req, res, next) => {
     Room.findAll()
         .then(rooms => {
@@ -313,3 +341,29 @@ exports.postDeleteRoom = (req, res, next) => {
         })
         .catch(err => console.log(err));
 };
+
+exports.postDeleteBook = (req, res, next) => {
+    const bookId = req.body.bookId;
+    Book.findByPk(bookId)
+        .then(book => {
+            return book.destroy();
+        })
+        .then(result => {
+            console.log('DESTROYED Book');
+            res.redirect('/admin/booked-room');
+        })
+        .catch(err => console.log(err));
+};
+
+exports.getBookRoom = (req, res, next) => {
+    Book.findAll()
+        .then(books => {
+            res.render('hotel/book-room-list', {
+                path: 'hotel/book-room-list',
+                pageTitle: 'Booked Room List',
+                books: books
+            });
+        })
+        .catch(err => console.log(err));
+};
+

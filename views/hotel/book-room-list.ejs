@@ -1,0 +1,41 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <% if (books.length > 0) { %>
+        <ul class="cart__item-list">
+            <% books.forEach(book => { %>
+                <li class="cart__item">
+                    <div>
+                        <h1>Room NO:<%= book.roomNo %></h1>
+                        <p>Booking Date: <%= book.bookingDate %></p>
+                    </div>
+
+                    <div>
+                        <h2>Customer Name: <%= book.customerName %></h2>
+                        <p>Customer NId: <%= book.customerNId %></p>
+                        <p>Customer Phone: <%= book.customerPhone %></p>
+                        <p>Customer Bill: <%= book.customerBill %></p>
+                    </div>
+                    <form action="/admin/cart-delete-book" method="POST">
+                        <input type="hidden" value="<%= book.id %>" name="bookId">
+                        <button class="btn danger" type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+        <hr>
+<!--        <div class="centered">-->
+<!--            <form action="/create-order" method="POST">-->
+<!--                <button type="submit" class="btn">Order Now!</button>-->
+<!--            </form>-->
+<!--        </div>-->
+
+    <% } else { %>
+        <h1>No Rooms Booked yet!</h1>
+    <% } %>
+</main>
+<%- include('../includes/end.ejs') %>

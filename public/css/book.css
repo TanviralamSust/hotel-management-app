@@ -1,0 +1,42 @@
+.book-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.book-item {
+    width: 20rem;
+    max-width: 95%;
+    margin: 1rem;
+}
+
+.book__roomNo {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.book__date {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+.book__customerName {
+    text-align: center;
+}
+
+.book_customerNId {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.book_customerPhone {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.book_customerBill {
+    font-size: 1rem;
+    text-align: center;
+}

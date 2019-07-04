@@ -14,6 +14,9 @@ const CartItem = require('./models/cart-item');
 const Order = require('./models/order');
 const OrderItem = require('./models/order-item');
 const Room = require('./models/room');
+const Book = require('./models/book');
+const BookRoomItem = require('./models/book-room-item');
+const BookCart = require('./models/book-cart');
 
 const app = express();
 
@@ -53,7 +56,12 @@ Employee.belongsTo(User);
 User.hasMany(Employee);
 Room.belongsTo(User);
 User.hasMany(Room);
-
+User.hasMany(Book);
+Book.belongsTo(User);
+User.hasOne(BookCart);
+BookCart.belongsTo(User);
+BookCart.belongsToMany(Book, { through: BookRoomItem });
+Book.belongsToMany(BookCart, { through: BookRoomItem });
 sequelize
   // .sync({ force: true })
   .sync()

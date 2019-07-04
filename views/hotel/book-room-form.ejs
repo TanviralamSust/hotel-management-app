@@ -1,42 +1,42 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet" href="/css/forms.css">
-<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/book.css">
 </head>
 
 <body>
 <%- include('../includes/navigation.ejs') %>
 
 <main>
-    <form class="product-form" action="/admin/<% if (editing) { %>edit-product<% } else { %>add-room<% } %>" method="POST">
+    <form class="book-form" action="/admin/<% if (editing) { %>edit-product<% } else { %>book-room<% } %>" method="POST">
         <div class="form-control">
             <label for="no">Room No</label>
-            <input type="number" name="no" id="no" value="<% if (editing) { %><%= product.title %><% } %>">
+            <input type="number" name="roomNo" id="no" value="<% if (editing) { %><%= book.roomNo %><% } %>">
         </div>
         <div class="form-control">
-            <label for="type">Room Type</label>
-            <input type="text" name="type" id="type" value="<% if (editing) { %><%= product.title %><% } %>">
+            <label for="bookingDate">Booking Date</label>
+            <input type="text" name="bookingDate" id="bookingDate" value="<% if (editing) { %><%= room.bookingDate %><% } %>">
         </div>
         <div class="form-control">
-            <label for="price">Room Price</label>
-            <input type="number" name="price" id="price" step="100" value="<% if (editing) { %><%= product.title %><% } %>">
+            <label for="customerNId">Room Capacity</label>
+            <input type="text" name="customerNId" id="customerNId" step="1" value="<% if (editing) { %><%= room.customerNId %><% } %>">
         </div>
         <div class="form-control">
-            <label for="cap">Room Capacity</label>
-            <input type="number" name="cap" id="cap" step="1" value="<% if (editing) { %><%= product.title %><% } %>">
+            <label for="customerName">Customer Name</label>
+            <input type="text" name="customerName" id="customerName" step="100" value="<% if (editing) { %><%= room.customerName %><% } %>">
         </div>
         <div class="form-control">
-            <label for="imageUrl">Image</label>
-            <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>">
+            <label for="customerPhone">Customer Phone</label>
+            <input type="text" name="customerPhone" id="customerPhone" value="<% if (editing) { %><%= room.customerPhone %><% } %>">
         </div>
         <div class="form-control">
-            <label for="description">Description</label>
-            <textarea name="description" id="description" rows="5"><% if (editing) { %><%= product.description %><% } %></textarea>
+            <label for="customerBill">Customer Bill</label>
+            <input  type="text" name="customerBill" id="customerBill" value="<% if (editing) { %><%= product.customerBill %><% } %>">
         </div>
         <% if (editing) { %>
-            <input type="hidden" value="<%= product.id %>" name="productId">
+            <input type="hidden" value="<%= room.id %>" name="roomId">
         <% } %>
 
-        <button class="btn" type="submit"><% if (editing) { %>Update Room<% } else { %>Add Room<% } %></button>
+        <button class="btn" type="submit"><% if (editing) { %>Update Room<% } else { %>Submit Booking<% } %></button>
     </form>
 </main>
 <%- include('../includes/end.ejs') %>
