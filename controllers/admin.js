@@ -104,6 +104,7 @@ exports.postBookRoom = (req, res, next) => {
     const customerNId = req.body.customerNId;
     const customerPhone = req.body.customerPhone;
     const customerBill = req.body.customerBill;
+    const customerServiceBill = req.body.customerServiceBill;
     req.user
         .createBook({
             roomNo: roomNo,
@@ -111,7 +112,8 @@ exports.postBookRoom = (req, res, next) => {
             customerName: customerName,
             customerNId: customerNId,
             customerPhone: customerPhone,
-            customerBill: customerBill
+            customerBill: customerBill,
+            customerServiceBill: customerServiceBill,
         }).then(result => {
         console.log('Created Booking Successfully');
         res.redirect('/admin/booked-room');
@@ -365,5 +367,48 @@ exports.getBookRoom = (req, res, next) => {
             });
         })
         .catch(err => console.log(err));
+};
+
+let getCustomerServiceBill = function() {
+    Book.sum('customerServiceBill').then(sum=> {
+        return sum;
+    })
+}
+
+exports.getTransactionHistory = (req, res, next) => {
+    Book.sum('customerBill').then(sum => {
+       //console.log(sum);
+       return sum;
+    })
+        .then(result => {
+        Book.sum('customerServiceBill').then(sum=> {
+            // console.log(result)
+            // console.log(sum);
+            return result+sum;
+        })
+            .then(result => {
+                Employee.sum('price').then(sum=> {
+                    console.log(result);
+                    console.log(sum);
+                    res.render('admin/transaction-history', {
+                        path: 'admin/transaction-history',
+                        pageTitle: 'Transaction History',
+                        income: result,
+                        expense: sum,
+                        revenue: result-sum,
+                    })
+                });
+            });
+    })
+            .catch(err => console.log(err));
+    // Book.findAll()
+    //     .then(books => {
+    //         res.render('hotel/book-room-list', {
+    //             path: 'hotel/book-room-list',
+    //             pageTitle: 'Booked Room List',
+    //             books: books
+    //         });
+    //     })
+    //     .catch(err => console.log(err));
 };
 

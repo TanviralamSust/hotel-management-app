@@ -69,4 +69,7 @@ router.get('/booked-room', adminController.getBookRoom);
 // /admin/delete-booking =>POST
 router.post('/cart-delete-book', adminController.postDeleteBook);
 
+// /admin/transaction-history =>GET
+router.get('/transaction-history', adminController.getTransactionHistory);
+
 module.exports = router;

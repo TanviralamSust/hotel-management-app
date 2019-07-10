@@ -19,6 +19,7 @@
                         <p>Customer NId: <%= book.customerNId %></p>
                         <p>Customer Phone: <%= book.customerPhone %></p>
                         <p>Customer Bill: <%= book.customerBill %></p>
+                        <p>Service Bill: <%= book.customerServiceBill %></p>
                     </div>
                     <form action="/admin/cart-delete-book" method="POST">
                         <input type="hidden" value="<%= book.id %>" name="bookId">

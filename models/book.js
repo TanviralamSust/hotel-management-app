@@ -27,7 +27,11 @@ const Book = sequelize.define('book', {
         allowNull: false
     },
     customerBill: {
-        type: Sequelize.STRING,
+        type: Sequelize.DOUBLE,
+        allowNull: false
+    },
+    customerServiceBill: {
+        type: Sequelize.DOUBLE,
         allowNull: false
     }
 });

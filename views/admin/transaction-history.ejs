@@ -1,0 +1,28 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+    <div class="transaction">
+
+        <h1>Transaction History</h1>
+
+        <div class="transaction__history">
+            <h3>Total Income Of The Month :<%=    %></h3>
+            <p>USD: <%= income %> $</p>
+        </div>
+
+        <div class="transaction__history">
+            <h3>Total Investment Of The Month : <%=    %></h3>
+            <p>USD: <%= expense %> $</p>
+        </div>
+
+        <div class="transaction__history">
+            <h3>Total Revenue Of The Month : <%=    %></h3>
+            <p>USD: <%= revenue %> $</p>
+        </div>
+    </div>
+
+<%- include('../includes/end.ejs') %>

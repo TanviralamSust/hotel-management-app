@@ -30,7 +30,11 @@
         </div>
         <div class="form-control">
             <label for="customerBill">Customer Bill</label>
-            <input  type="text" name="customerBill" id="customerBill" value="<% if (editing) { %><%= product.customerBill %><% } %>">
+            <input  type="number" name="customerBill" id="customerBill" value="<% if (editing) { %><%= room.customerBill %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="customerServiceBill">Service Bill</label>
+            <input  type="number" name="customerServiceBill" id="customerServiceBill" value="<% if (editing) { %><%= room.customerServiceBill %><% } %>">
         </div>
         <% if (editing) { %>
             <input type="hidden" value="<%= room.id %>" name="roomId">
