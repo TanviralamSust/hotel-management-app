@@ -72,4 +72,8 @@ router.post('/cart-delete-book', adminController.postDeleteBook);
 // /admin/transaction-history =>GET
 router.get('/transaction-history', adminController.getTransactionHistory);
 
+
+// /admin/find-transaction-history =>POST
+router.post('/find-transaction', adminController.postFindTransaction);
+
 module.exports = router;

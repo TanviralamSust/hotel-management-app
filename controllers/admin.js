@@ -369,6 +369,7 @@ exports.getBookRoom = (req, res, next) => {
         .catch(err => console.log(err));
 };
 
+
 let getCustomerServiceBill = function() {
     Book.sum('customerServiceBill').then(sum=> {
         return sum;
@@ -401,14 +402,42 @@ exports.getTransactionHistory = (req, res, next) => {
             });
     })
             .catch(err => console.log(err));
-    // Book.findAll()
-    //     .then(books => {
-    //         res.render('hotel/book-room-list', {
-    //             path: 'hotel/book-room-list',
-    //             pageTitle: 'Booked Room List',
-    //             books: books
-    //         });
-    //     })
-    //     .catch(err => console.log(err));
 };
 
+
+exports.postFindTransaction = (req, res, next) => {
+    const bookingDate = req.body.bookingDate;
+    Book.sum('customerBill',{
+        where: {
+            bookingDate: bookingDate
+        }
+    }).then(sum => {
+        return sum;
+    }).then(result => {
+        Book.sum('customerServiceBill', {
+            where: {
+                bookingDate: bookingDate
+            }})
+            .then(sum => {
+                console.log(result);
+                console.log(sum+result);
+                return result + sum;
+
+            })
+        return result;
+        })
+    .then(result => {
+        Employee.sum('price').then(sum=> {
+            console.log(result);
+            console.log(sum);
+            res.render('admin/transaction-history', {
+                path: 'admin/transaction-history',
+                pageTitle: 'Transaction History',
+                income: result,
+                expense: sum,
+                revenue: result-sum,
+            })
+        });
+    })
+        .catch(err => console.log(err))
+};

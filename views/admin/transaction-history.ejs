@@ -9,6 +9,15 @@
 
         <h1>Transaction History</h1>
 
+        <h3>Please put your date to see the total income for the desired date</h3>
+        <form class="product-form" action="/admin/find-transaction" method="POST">
+            <div class="form-control">
+                <label for="bookingDate">Room No</label>
+                <input type="text" name="bookingDate" id="bookingDate">
+            </div>
+            <button class="btn" type="submit">Submit Date</button>
+        </form>
+
         <div class="transaction__history">
             <h3>Total Income Of The Month :<%=    %></h3>
             <p>USD: <%= income %> $</p>
