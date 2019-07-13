@@ -7,31 +7,30 @@
 
     <div class="transaction">
 
-        <h1>Transaction History</h1>
+        <h1>Generate Daily Transaction Report</h1>
 
-        <h3>Please put your date to see the total income for the desired date</h3>
+        <h3>Please put your Date, Month, Year to generate your report for your desired date.</h3>
         <form class="product-form" action="/admin/find-transaction" method="POST">
             <div class="form-control">
                 <label for="bookingDate">Room No</label>
                 <input type="text" name="bookingDate" id="bookingDate">
+                <div class="form-control">
+                    <label for="bookingMonth">Month</label>
+                    <input type="text" name="bookingMonth" id="bookingMonth">
+                </div>
+                <div class="form-control">
+                    <label for="bookingYear">Year</label>
+                    <input type="text" name="bookingYear" id="bookingYear">
+                </div>
             </div>
             <button class="btn" type="submit">Submit Date</button>
         </form>
 
         <div class="transaction__history">
-            <h3>Total Income Of The Month :<%=    %></h3>
+            <h3>Total Income For your desired Date (<%= bookingDate  %>/<%= bookingMonth  %>/<%= bookingYear  %>): </h3>            <h3>Total Income For your desired Date (<%= bookingDate  %>/<%= bookingMonth  %>/<%= bookingYear  %>): </h3>
             <p>USD: <%= income %> $</p>
         </div>
 
-        <div class="transaction__history">
-            <h3>Total Investment Of The Month : <%=    %></h3>
-            <p>USD: <%= expense %> $</p>
-        </div>
-
-        <div class="transaction__history">
-            <h3>Total Revenue Of The Month : <%=    %></h3>
-            <p>USD: <%= revenue %> $</p>
-        </div>
     </div>
 
 <%- include('../includes/end.ejs') %>

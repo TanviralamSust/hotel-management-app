@@ -72,7 +72,11 @@ router.post('/cart-delete-book', adminController.postDeleteBook);
 // /admin/transaction-history =>GET
 router.get('/transaction-history', adminController.getTransactionHistory);
 
+// /admin/transaction-history-search =>GET
+router.get('/transaction-history-search', adminController.getTransactionHistorySearch);
 
+// /admin/find-transaction-history-month =>POST
+router.post('/find-transaction-month', adminController.postFindTransactionMonth);
 // /admin/find-transaction-history =>POST
 router.post('/find-transaction', adminController.postFindTransaction);
 

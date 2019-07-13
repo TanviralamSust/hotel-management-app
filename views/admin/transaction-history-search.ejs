@@ -1,0 +1,41 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+<div class="transaction">
+
+    <h1>Generate Monthly Transaction Report</h1>
+
+    <h3>Please put your Month, Year to generate your report for your desired Month</h3>
+    <form class="product-form" action="/admin/find-transaction-month" method="POST">
+        <div class="form-control">
+            <label for="bookingMonth">Month</label>
+            <input type="text" name="bookingMonth" id="bookingMonth">
+        </div>
+        <div class="form-control">
+            <label for="bookingYear">Year</label>
+            <input type="text" name="bookingYear" id="bookingYear">
+        </div>
+        <button class="btn" type="submit">Submit</button>
+    </form>
+
+    <div class="transaction__history">
+        <h3>Total Investment Of The Month: </h3>
+        <p>USD: <%= income %> $</p>
+    </div>
+
+    <div class="transaction__history">
+        <h3>Total Investment Of The Month </h3>
+        <p>USD: <%= expense %> $</p>
+    </div>
+
+    <div class="transaction__history">
+        <h3>Total Revenue Of The Month:  </h3>
+        <p>USD: <%= revenue %> $</p>
+    </div>
+</div>
+
+<%- include('../includes/end.ejs') %>

@@ -100,6 +100,8 @@ exports.postAddRoom = (req, res, next) => {
 exports.postBookRoom = (req, res, next) => {
     const roomNo = req.body.roomNo;
     const bookingDate = req.body.bookingDate;
+    const bookingMonth = req.body.bookingMonth;
+    const bookingYear = req.body.bookingYear;
     const customerName = req.body.customerName;
     const customerNId = req.body.customerNId;
     const customerPhone = req.body.customerPhone;
@@ -109,6 +111,8 @@ exports.postBookRoom = (req, res, next) => {
         .createBook({
             roomNo: roomNo,
             bookingDate: bookingDate,
+            bookingMonth: bookingMonth,
+            bookingYear: bookingYear,
             customerName: customerName,
             customerNId: customerNId,
             customerPhone: customerPhone,
@@ -403,20 +407,53 @@ exports.getTransactionHistory = (req, res, next) => {
     })
             .catch(err => console.log(err));
 };
+exports.getTransactionHistorySearch =  (req, res, next) => {0
+    Book.sum('customerBill').then(sum => {
+        //console.log(sum);
+        return sum;
+    })
+        .then(result => {
+            Book.sum('customerServiceBill').then(sum=> {
+                // console.log(result)
+                // console.log(sum);
+                return result+sum;
+            })
+                .then(result => {
+                    Employee.sum('price').then(sum=> {
+                        console.log(result);
+                        console.log(sum);
+                        res.render('admin/transaction-history-search', {
+                            pageTitle: 'Transaction History Search',
+                            path: '/admin/transaction-history-search',
+                            income: result,
+                            expense: sum,
+                            revenue: result-sum,
+                        })
+                    });
+                });
+        })
+        .catch(err => console.log(err));
 
+};
 
 exports.postFindTransaction = (req, res, next) => {
     const bookingDate = req.body.bookingDate;
+    const bookingMonth = req.body.bookingMonth;
+    const bookingYear = req.body.bookingYear;
     Book.sum('customerBill',{
         where: {
-            bookingDate: bookingDate
+            bookingDate: bookingDate,
+            bookingMonth: bookingMonth,
+            bookingYear: bookingYear
         }
     }).then(sum => {
         return sum;
     }).then(result => {
         Book.sum('customerServiceBill', {
             where: {
-                bookingDate: bookingDate
+                bookingDate: bookingDate,
+                bookingMonth: bookingMonth,
+                bookingYear: bookingYear
             }})
             .then(sum => {
                 console.log(result);
@@ -436,8 +473,52 @@ exports.postFindTransaction = (req, res, next) => {
                 income: result,
                 expense: sum,
                 revenue: result-sum,
+                bookingDate: bookingDate,
+                bookingMonth: bookingMonth,
+                bookingYear:bookingYear
             })
         });
     })
+        .catch(err => console.log(err))
+};
+exports.postFindTransactionMonth= (req, res, next) => {
+    const bookingMonth = req.body.bookingMonth;
+    const bookingYear = req.body.bookingYear;
+    Book.sum('customerBill',{
+        where: {
+            bookingMonth: bookingMonth,
+            bookingYear: bookingYear
+        }
+    }).then(sum => {
+        return sum;
+    }).then(result => {
+        Book.sum('customerServiceBill', {
+            where: {
+                bookingMonth: bookingMonth,
+                bookingYear: bookingYear
+            }})
+            .then(sum => {
+                console.log(result);
+                console.log(sum+result);
+                return result + sum;
+
+            })
+        return result;
+    })
+        .then(result => {
+            Employee.sum('price').then(sum=> {
+                console.log(result);
+                console.log(sum);
+                res.render('admin/transaction-history-search', {
+                    path: 'admin/transaction-history-search',
+                    pageTitle: 'Transaction History Search',
+                    income: result,
+                    expense: sum,
+                    revenue: result-sum,
+                    bookingMonth: bookingMonth,
+                    bookingYear:bookingYear
+                })
+            });
+        })
         .catch(err => console.log(err))
 };

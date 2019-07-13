@@ -12,10 +12,26 @@
             <label for="no">Room No</label>
             <input type="number" name="roomNo" id="no" value="<% if (editing) { %><%= book.roomNo %><% } %>">
         </div>
-        <div class="form-control">
-            <label for="bookingDate">Booking Date</label>
-            <input type="text" name="bookingDate" id="bookingDate" value="<% if (editing) { %><%= room.bookingDate %><% } %>">
+
+        <div class="date_input_div">
+            <div class="form-control">
+                <label for="bookingDate">Booking Date</label>
+                <input type="text" name="bookingDate" id="bookingDate" value="<% if (editing) { %><%= room.bookingDate %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="bookingMonth">Booking Month</label>
+                <input type="text" name="bookingMonth" id="bookingMonth" value="<% if (editing) { %><%= room.bookingMonth %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="bookingYear">Booking year</label>
+                <input type="text" name="bookingYear" id="bookingYear" value="<% if (editing) { %><%= room.bookingYear %><% } %>">
+            </div>
         </div>
+
+<!--        <div class="form-control">-->
+<!--            <label for="bookingDate">Booking Date</label>-->
+<!--            <input type="text" name="bookingDate" id="bookingDate" value="<% if (editing) { %><%= room.bookingDate %><% } %>">-->
+<!--        </div>-->
         <div class="form-control">
             <label for="customerNId">Room Capacity</label>
             <input type="text" name="customerNId" id="customerNId" step="1" value="<% if (editing) { %><%= room.customerNId %><% } %>">

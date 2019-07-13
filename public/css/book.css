@@ -5,6 +5,11 @@
     display: block;
 }
 
+date_input_div {
+    display: flex;
+    flex-direction: row;
+}
+
 .book-item {
     width: 20rem;
     max-width: 95%;

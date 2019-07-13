@@ -14,6 +14,14 @@ const Book = sequelize.define('book', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    bookingMonth: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    bookingYear: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     customerName: {
         type: Sequelize.STRING,
         allowNull: false
