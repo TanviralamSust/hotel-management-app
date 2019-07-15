@@ -75,6 +75,12 @@ router.get('/transaction-history', adminController.getTransactionHistory);
 // /admin/transaction-history-search =>GET
 router.get('/transaction-history-search', adminController.getTransactionHistorySearch);
 
+// /admin/find-book-room-month =>POST
+router.post('/find-book-room-month', adminController.postFindBookRoomMonth);
+
+// /admin/find-book-room-date =>POST
+router.post('/find-book-room-date', adminController.postFindBookRoomDate);
+
 // /admin/find-transaction-history-month =>POST
 router.post('/find-transaction-month', adminController.postFindTransactionMonth);
 // /admin/find-transaction-history =>POST

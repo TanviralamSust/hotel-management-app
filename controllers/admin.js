@@ -481,6 +481,50 @@ exports.postFindTransaction = (req, res, next) => {
     })
         .catch(err => console.log(err))
 };
+
+exports.postFindBookRoomMonth= (req, res, next) => {
+
+    const bookingMonth = req.body.bookingMonth;
+    const bookingYear = req.body.bookingYear;
+    Book.findAll({
+        where: {
+            bookingMonth: bookingMonth,
+            bookingYear: bookingYear
+        }
+    })
+        .then(books => {
+            res.render('hotel/book-room-list', {
+                path: 'hotel/book-room-list',
+                pageTitle: 'Booked Room List',
+                books: books
+            });
+        })
+        .catch(err => console.log(err));
+
+};
+
+exports.postFindBookRoomDate= (req, res, next) => {
+    const bookingDate = req.body.bookingDate;
+    const bookingMonth = req.body.bookingMonth;
+    const bookingYear = req.body.bookingYear;
+    Book.findAll({
+        where: {
+            bookingDate: bookingDate,
+            bookingMonth: bookingMonth,
+            bookingYear: bookingYear
+        }
+    })
+        .then(books => {
+            res.render('hotel/book-room-list', {
+                path: 'hotel/book-room-list',
+                pageTitle: 'Booked Room List',
+                books: books
+            });
+        })
+        .catch(err => console.log(err));
+
+}
+
 exports.postFindTransactionMonth= (req, res, next) => {
     const bookingMonth = req.body.bookingMonth;
     const bookingYear = req.body.bookingYear;
